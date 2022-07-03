@@ -3,13 +3,18 @@
 .list-group-item.active, 
 .list-group-item.active:focus, 
 .list-group-item.active:hover {
-    background-color: #F7BF4F; }
+    background-color: #6aa2b8; }
     
-h1, h2, h3 {
-  color:#a16c02;}
+h1 {
+  color:#1b3d6d;
+}
+
+h2, h3 {
+  color:#0064a4;
+}
   
 a {
-  color:#a16c02;
+  color:#0064a4;
 }
 
 ul {

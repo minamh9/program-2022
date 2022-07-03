@@ -44,7 +44,6 @@ th, td{padding: 5px;
 thead, tfoot, tr:nth-child(even) { background: #eee }
 
 body { 
-    background-image: url('img/socalds-logo.png');
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: right 10px top 20px;; 

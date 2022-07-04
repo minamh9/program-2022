@@ -22,8 +22,7 @@ output:
 
 - **Install and setup git** [`r fontawesome::fa(name = "video")`](https://uci.yuja.com/V/Video?v=3637094&node=12339053&a=1176648183&autoplay=1) [`r fontawesome::fa(name = "chalkboard-teacher")`](https://www.introdata.science/slides/week00/00a-git-github-install.html#1)
 
-- **Test your installations**  *NEED TO REPLACE WITH NEW VIDEO*
-<!-- [`r fontawesome::fa(name = "video")`](https://uci.yuja.com/V/Video?v=4810457&node=15922642&a=1712193560&autoplay=1) -->
+- **Test your installations** [`r fontawesome::fa(name = "video")`](https://uci.zoom.us/rec/share/gr6gnZLmm_SE6u1QI9DjxwhJpwIgtMO6KOYjlEObg4GTSjT_v7MR2W8-fr4E3RN7.UhNQAQACeITGdBvE?startTime=1656964391000)
 
 
 ## Day 1 - July 11th

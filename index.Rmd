@@ -29,7 +29,184 @@ output:
 - **Test your installations** [`r fontawesome::fa(name = "video")`](https://uci.zoom.us/rec/share/gr6gnZLmm_SE6u1QI9DjxwhJpwIgtMO6KOYjlEObg4GTSjT_v7MR2W8-fr4E3RN7.UhNQAQACeITGdBvE?startTime=1656964391000)
 
 
-## Day 1 - July 11th
+## Day 1 - July 11
 
-| Topic                         | Materials |
-|-------------------------------|-----------|
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | Probability (part 1) |[`r fontawesome::fa(name = "desktop")`](week1-material/day1-prob-slides-part1.pdf) |
+
+## Day 2 - July 12
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 (9am-12pm) | | |
+| ISEB 2020 (1pm-3:25pm)| | |
+
+## Day 3 - July 13
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 4 - July 14
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 5 - July 15
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 6 - July 18
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 7 - July 19
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 3011 | | |
+
+## Day 8 - July 20
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 9 - July 21
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 (9am-12pm) | | |
+| ISEB 1010 (1pm-3:25pm) | | |
+
+## Day 10 - July 22
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 11 - July 25
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 12 - July 26
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 3011 | | |
+
+## Day 13 - July 27
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 14 - July 28
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 15 - July 29
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 16 - August 1
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 17 - August 2
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 3011 | | |
+
+## Day 18 - August 3
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 19 - August 4
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 20 - August 5
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 4011 | | |
+
+## Day 21 - August 8
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 2011 | | |
+
+## Day 22 - August 9
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 2011 | | |
+
+## Day 23 - August 10
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 2011 | | |
+
+## Day 24 - August 11
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 2011 | | |
+
+## Day 25 - August 12
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 2011 | | |
+
+## Day 26 - August 15
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 2011 | | |
+
+## Day 27 - August 16
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 2011 | | |
+
+## Day 28 - August 17
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 2011 | | |
+
+## Day 29 - August 18
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 2011 | | |
+
+## Day 30 - August 19
+
+| Location |  Topic                         | Materials |
+|:---------|:-------------------------------|:----------|
+| DBH 2011 | | |

@@ -31,10 +31,12 @@ output:
 
 ## Day 1 - July 11
 
-| Location |  Topic                         | Materials |
-|:---------|:-------------------------------|:----------|
-| DBH 4011 | Probability (parts 1, 2, & 3) | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part1_day1.pdf) [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part2_day1.pdf) [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part3_day1.pdf) |
-| DBH 4011 | Intro to coding in R lab| [`r fontawesome::fa(name = "file")`](week1-material/day1-lab-coding-intro.R)|
+| Location |  Topic                         | Materials    |
+|:---------|:-------------------------------|:-------------|
+| DBH 4011 | Probability part 1 | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part1_day1.pdf) (*annotated slides* [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part1_day1_annotated.pdf)) |
+| DBH 4011 | Probability part 2 | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part2_day1.pdf) (*annotated slides* [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part2_day1_annotated.pdf)) |
+| DBH 4011 | Probability part 3 | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part3_day1.pdf) (*annotated slides* [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part3_day1_annotated.pdf)) |
+
 
 ## Day 2 - July 12
 

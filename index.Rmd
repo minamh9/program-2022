@@ -33,7 +33,8 @@ output:
 
 | Location |  Topic                         | Materials |
 |:---------|:-------------------------------|:----------|
-| DBH 4011 | Probability (part 1) |[`r fontawesome::fa(name = "desktop")`](week1-material/day1-prob-slides-part1.pdf) |
+| DBH 4011 | Probability (part 1) | [`r fontawesome::fa(name = "desktop")`](week1-material/day1-prob-slides-part1.pdf) |
+| DBH 4011 | Intro to coding in R lab| [`r fontawesome::fa(name = "file")`](week1-material/day1-lab-coding-intro.R)|
 
 ## Day 2 - July 12
 

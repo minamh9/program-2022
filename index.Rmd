@@ -40,9 +40,10 @@ output:
 
 ## Day 2 - July 12
 
-| Location |  Topic                         | Materials |
-|:---------|:-------------------------------|:----------|
-| DBH 4011 (9am-12pm) | | |
+| Location      |  Topic                         | Materials |
+|:--------------|:-------------------------------|:----------|
+| DBH 4011 (9am-12pm) | Expectation and Monte Carlo Estimation | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part1_day2.pdf) |
+| DBH 4011 (9am-12pm) | Inversion method, transformation method, and rejection sampling | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part2_day2.pdf) |
 | ISEB 2020 (1pm-3:25pm)| | |
 
 ## Day 3 - July 13

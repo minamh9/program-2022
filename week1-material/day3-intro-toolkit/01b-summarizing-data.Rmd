@@ -25,15 +25,17 @@ class: title-slide
 ## `r rmarkdown::metadata$author`
 ### `r rmarkdown::metadata$subtitle`
 ### `r rmarkdown::metadata$date`
+
 ---
 
 
 class: middle
+
 ```{r message = FALSE, echo=FALSE}
 library(tidyverse)
 library(openintro)
-
 ```
+
 
 ```{r echo = FALSE}
 fastfood <- fastfood %>% 
@@ -42,10 +44,46 @@ fastfood <- fastfood %>%
 
 
 
+
+
+```{r}
+head(fastfood)
+```
+
+---
+
+class: middle
+
+
+```{r}
+tail(fastfood)
+```
+
+---
+
+class: middle
+
+## Number of Observations
+
+```{r}
+nrow(fastfood)
+```
+
+---
+
+class: middle
+
+## Number of Variables
+
+```{r}
+ncol(fastfood)
+```
+
+---
+
 ```{r}
 glimpse(fastfood)
 ```
-
 
 
 ---
@@ -202,6 +240,8 @@ min(fastfood$calories)
 
 
 ---
+
+class: middle
 
 ## Maximum
 

@@ -238,11 +238,11 @@ class: center middle
 
 class: inverse middle
 
-.font100[`r fontawesome::fa(name = "r-project", fill = "white")` = .R file]
+.font100[`r fontawesome::fa(name = "r-project", fill = "black")` = .R file]
 
-.font100[`r fontawesome::fa(name = "markdown", fill = "white")` = .md file]
+.font100[`r fontawesome::fa(name = "markdown", fill = "black")` = .md file]
 
-.font100[`r fontawesome::fa(name = "r-project", fill = "white")` + `r fontawesome::fa(name = "markdown", fill = "white")` = .Rmd file]
+.font100[`r fontawesome::fa(name = "r-project", fill = "black")` + `r fontawesome::fa(name = "markdown", fill = "black")` = .Rmd file]
 
 ---
 
@@ -314,7 +314,7 @@ class: middle
 
 ## R Markdown for slides
 
-Slides that you are currently looking at are also written in R Markdown. You can take a look at them on [GitHub repo]() for the bootcamp website.
+Slides that you are currently looking at are also written in R Markdown. You can take a look at them on [GitHub repo](https://github.com/isi-buds/program-2022/tree/main/week1-material/day3-intro-toolkit) for the program website.
 
 ---
 
@@ -359,7 +359,7 @@ hw1_finalestfinal
 
 class: middle
 
-What if we tracked our file with a better names for each version and have only 1 file **hw1**?
+What if we tracked our file with better names for each version and have only 1 file **hw1**?
 
 --
 

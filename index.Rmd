@@ -36,6 +36,7 @@ output:
 | DBH 4011 | Probability part 1 | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part1_day1.pdf) (*annotated slides* [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part1_day1_annotated.pdf)) |
 | DBH 4011 | Probability part 2 | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part2_day1.pdf) (*annotated slides* [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part2_day1_annotated.pdf)) |
 | DBH 4011 | Probability part 3 | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part3_day1.pdf) (*annotated slides* [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part3_day1_annotated.pdf)) |
+| DBH 4011 | R coding basics | [`r fontawesome::fa(name = "desktop")`](week1-material/labs/day1-lab-coding-intro.R) |
 
 
 ## Day 2 - July 12
@@ -44,7 +45,7 @@ output:
 |:--------------|:-------------------------------|:----------|
 | DBH 4011 (9am-12pm) | Expectation and Monte Carlo Estimation | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part1_day2.pdf) |
 | DBH 4011 (9am-12pm) | Inversion method, transformation method, and rejection sampling | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part2_day2.pdf) |
-| ISEB 2020 (1pm-3:25pm)| | |
+| ISEB 2020 (1pm-3:25pm)| Lab | [`r fontawesome::fa(name = "desktop")`](week1-material/labs/day2-lab.R) |
 
 ## Day 3 - July 13
 

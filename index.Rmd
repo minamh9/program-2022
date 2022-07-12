@@ -45,7 +45,7 @@ output:
 |:--------------|:-------------------------------|:----------|
 | DBH 4011 (9am-12pm) | Expectation and Monte Carlo Estimation | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part1_day2.pdf) |
 | DBH 4011 (9am-12pm) | Inversion method, transformation method, and rejection sampling | [`r fontawesome::fa(name = "desktop")`](week1-material/prob_slides_part2_day2.pdf) |
-| ISEB 2020 (1pm-3:25pm)| Lab | [`r fontawesome::fa(name = "desktop")`](week1-material/labs/day2-lab.Rmd) |
+| ISEB 2020 (1pm-3:25pm)| Lab | [`r fontawesome::fa(name = "desktop")`](week1-material/labs/day2-lab.html) |
 
 ## Day 3 - July 13
 

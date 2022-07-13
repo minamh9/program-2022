@@ -52,7 +52,8 @@ library(fontawesome)
 
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
-| DBH 4011 | | |
+| DBH 4011 | GitHub, one variable visualization, mutating variables| |
+| DBH 4011 | Lab | available on GitHub|
 
 ## Day 4 - July 14
 

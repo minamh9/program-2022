@@ -1,0 +1,987 @@
+---
+title: "Visualizing Data"
+subtitle: "ISI-BUDS"
+author: "Dr. Mine Dogucu"
+date: "2022-07-14"
+output: 
+  xaringan::moon_reader:
+    css: ["slide-style.css"]
+    lib_dir: libs
+    seal: false
+    nature:
+      ratio: 16:9
+      highlightStyle: "pygments"
+      highlightLines: true
+      highlightLanguage: "r"
+
+
+---
+
+class: title-slide
+
+<br>
+<br>
+
+# `r rmarkdown::metadata$title`
+## `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$subtitle`
+### `r rmarkdown::metadata$date`
+
+---
+
+```{r echo = FALSE, message=FALSE, warning=FALSE}
+xaringanExtra::use_panelset()
+library(openintro)
+library(tidyverse)
+library(gganimate)
+library(fGarch)
+library(palmerpenguins)
+library(tidyverse)
+library(janitor)
+
+babies <- babies %>% 
+  mutate(smoke = as.logical(smoke),
+         parity = as.logical(parity))
+```
+
+class: middle 
+ 
+
+.panelset[
+.panel[
+
+.panel-name[Plot]
+
+```{r echo = FALSE, fig.align='center', warning = FALSE, fig.height=5}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) 
+```
+
+]
+
+.panel[
+
+.panel-name[English]
+- Using the `penguins` data,   
+- Map `bill depth` to x-axis, `bill length` to y-axis, `species` to shape and color.
+- Add a layer of points and set the size of the points to 4.
+]
+
+.panel[
+.panel-name[R]
+```{r eval = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) 
+```
+
+]
+
+]
+
+
+---
+
+class: middle 
+
+## Labs
+
+
+.panelset[
+.panel[
+
+.panel-name[Plot]
+
+```{r echo = FALSE, fig.align='center', warning = FALSE, fig.height=5}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) +
+  labs(x = "Bill Depth (mm)", #<<
+       y = "Bill Length (mm)", #<<
+       title = "Palmer Penguins") #<<
+```
+
+]
+
+.panel[
+
+.panel-name[English]
+- Using the `penguins` data,   
+- Map `bill depth` to x-axis, `bill length` to y-axis, `species` to shape.
+- Add a layer of points and set the size of the points to 4.
+- .highlight-text[Add labels to x-axis (Bill Depth(mm)), y-axis (Bill Length(mm)), and the title of the plot (Palmer Penguins).]
+
+
+
+.panel[
+.panel-name[R]
+```{r eval = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) +
+  labs(x = "Bill Depth (mm)", #<<
+       y = "Bill Length (mm)", #<<
+       title = "Palmer Penguins") #<<
+```
+
+]
+
+]
+
+
+
+]
+
+---
+
+class: middle
+
+.left-panel[
+```{r eval = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point() +
+  labs(x = "Bill Depth (mm)", 
+       y = "Bill Length (mm)", 
+       title = "Palmer Penguins") +
+  theme_bw() #<<
+  
+```
+
+]
+
+.right-panel[
+```{r echo = FALSE, fig.height=5, warning = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point() +
+  labs(x = "Bill Depth (mm)",
+       y = "Bill Length (mm)",
+       title = "Palmer Penguins") +
+  theme_bw()
+```
+
+]
+
+---
+
+class: middle
+
+## Themes
+
+.panelset[
+
+
+.panel[
+
+.panel-name[`theme_gray()`]
+
+```{r echo = FALSE, fig.height=4, fig.align='center', warning = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point() +
+  labs(x = "Bill Depth (mm)",
+       y = "Bill Length (mm)",
+       title = "Palmer Penguins") +
+  theme_gray()
+```
+
+]
+
+.panel[
+
+.panel-name[`theme_bw()`]
+
+```{r echo = FALSE, fig.height=4, fig.align='center', warning = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point() +
+  labs(x = "Bill Depth (mm)",
+       y = "Bill Length (mm)",
+       title = "Palmer Penguins") +
+  theme_bw()
+```
+
+]
+
+.panel[
+
+.panel-name[`theme_classic()`]
+
+```{r echo = FALSE, fig.height=4, fig.align='center', warning = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point() +
+  labs(x = "Bill Depth (mm)",
+       y = "Bill Length (mm)",
+       title = "Palmer Penguins") +
+  theme_classic()
+```
+
+]
+
+.panel[
+
+.panel-name[`theme_dark()`]
+
+```{r echo = FALSE, fig.height=4, fig.align='center', warning = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point() +
+  labs(x = "Bill Depth (mm)",
+       y = "Bill Length (mm)",
+       title = "Palmer Penguins") +
+  theme_dark()
+```
+
+]
+
+.panel[
+.panel-name[`theme_minimal()`]
+
+```{r echo = FALSE, fig.height=4, fig.align='center', warning = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point() +
+  labs(x = "Bill Depth (mm)",
+       y = "Bill Length (mm)",
+       title = "Palmer Penguins") +
+  theme_minimal()
+```
+
+]
+
+
+.panel[
+.panel-name[`theme_void()`]
+
+```{r echo = FALSE, fig.height=4, fig.align='center', warning = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point() +
+  labs(x = "Bill Depth (mm)",
+       y = "Bill Length (mm)",
+       title = "Palmer Penguins") +
+  theme_void()
+```
+
+]
+]
+
+---
+
+class: middle 
+
+.left-panel[
+
+```{r eval = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point() +
+  labs(x = "Bill Depth (mm)", 
+       y = "Bill Length (mm)", 
+       title = "Palmer Penguins") +
+  theme_bw() +
+  theme(text = element_text(size=20)) #<<
+  
+```
+
+]
+
+.right-panel[
+
+```{r echo = FALSE, fig.height=5, warning = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point() +
+  labs(x = "Bill Depth (mm)",
+       y = "Bill Length (mm)",
+       title = "Palmer Penguins") +
+  theme_bw() +
+  theme(text = element_text(size=20))
+```
+]
+
+
+---
+
+class: middle
+
+```{r eval = FALSE}
+?theme
+```
+
+[A blog post on theme elements](https://cmdlinetips.com/2021/05/tips-to-customize-text-color-font-size-in-ggplot2-with-element_text/)
+
+---
+
+class: middle 
+ 
+
+.left-panel[
+
+```{r eval = FALSE, fig.align='center', warning = FALSE, fig.height=5}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) +
+  facet_grid(.~species) #<<
+```
+
+]
+
+.right-panel[
+```{r echo = FALSE, fig.align='center', warning = FALSE, fig.height=5}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) +
+  facet_grid(.~species)
+```
+]
+
+---
+
+class: middle 
+ 
+
+.left-panel[
+
+```{r eval = FALSE, fig.align='center', warning = FALSE, fig.height=5}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) +
+  facet_grid(species~.) #<<
+```
+
+]
+
+.right-panel[
+```{r echo = FALSE, fig.align='center', warning = FALSE, fig.height=5}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) +
+  facet_grid(species~.)
+```
+]
+
+---
+
+class: middle
+
+.left-panel[
+```{r eval = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm)) +
+  geom_point() +
+  xlim(0, 30) + #<<
+  ylim(0, 70) #<<
+  
+```
+
+]
+
+.right-panel[
+```{r echo = FALSE, fig.height=5, warning = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm)) +
+  geom_point() +
+  xlim(0, 30) +
+  ylim(0,70)
+```
+
+]
+
+
+---
+
+class: middle
+
+[Top Ten Dos and Don't for Charts and Graphs](https://guides.lib.uci.edu/datavis/do)
+
+---
+
+class: middle
+
+Check out [the ggplot flipbook](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html#1) for some inspiration. 
+Find your favorite new function/feature. 
+Share it with your neighbor.
+
+
+---
+
+class: middle 
+
+```{r echo = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+```{r message = FALSE}
+library(maps)
+usa <- map_data("usa")
+glimpse(usa)
+```
+
+---
+
+.pull-left[
+<br>
+<br>
+<br>
+```{r fig.align='center', eval = FALSE}
+ggplot(data = usa,
+       aes(x = long, 
+           y = lat)) 
+```
+]
+
+.pull-right[
+
+```{r fig.align='center', echo = FALSE}
+ggplot(data = usa,
+       aes(x = long, 
+           y = lat))
+```
+]
+---
+.pull-left[
+<br>
+<br>
+<br>
+```{r fig.align='center', eval = FALSE}
+ggplot(data = usa,
+       aes(x = long, 
+           y = lat)) + 
+  geom_polygon() 
+```
+]
+
+.pull-right[
+
+```{r fig.align='center', echo = FALSE}
+ggplot(data = usa,
+       aes(x = long, 
+           y = lat)) + 
+  geom_polygon() 
+```
+]
+
+---
+
+class: middle
+
+.pull-left[
+<br>
+<br>
+<br>
+```{r fig.align='center', eval = FALSE}
+ggplot(data = usa,
+       aes(x = long, 
+           y = lat)) + 
+  geom_polygon() + 
+  coord_fixed(1.4)
+```
+]
+
+.pull-right[
+
+```{r fig.align='center', echo = FALSE}
+ggplot(data = usa,
+       aes(x = long, 
+           y = lat)) + 
+  geom_polygon() + 
+  coord_fixed(1.4)
+```
+]
+---
+.pull-left[
+<br>
+<br>
+<br>
+```{r fig.align='center', eval = FALSE}
+ggplot(data = usa,
+       aes(x = long, 
+           y = lat)) + 
+  geom_polygon(fill = NA,
+               color = "steelblue") + 
+  coord_fixed(1.4)
+```
+]
+
+.pull-right[
+
+```{r fig.align='center', echo = FALSE}
+ggplot(data = usa,
+       aes(x = long, 
+           y = lat)) + 
+  geom_polygon(fill = NA, 
+               color = "steelblue") + 
+  coord_fixed(1.4)
+```
+]
+
+---
+
+class: middle
+
+.pull-left[
+<br>
+<br>
+<br>
+```{r fig.align='center', eval = FALSE}
+ggplot(data = usa,
+       aes(x = long, 
+           y = lat)) + 
+  geom_polygon(fill = NA, 
+               color = "steelblue",
+               aes(group = group))  + 
+  coord_fixed(1.4)
+```
+]
+
+.pull-right[
+
+```{r fig.align='center', echo = FALSE}
+ggplot(data = usa,
+       aes(x = long, 
+           y = lat)) + 
+  geom_polygon(fill = NA, 
+               color = "steelblue",
+               aes(group = group))  + 
+  coord_fixed(1.4)
+```
+]
+
+---
+
+class: middle
+
+```{r}
+location <- c("Northampton", "Columbus", "Sarasota","Irvine" )
+  
+long <- c(-72.6412, -82.998795, -82.538602, -117.824719)
+lat <- c(42.3251, 39.961178, 27.336483, 33.685908)
+pop <- c(28726, 892533, 57738, 282572)
+         
+home <- tibble::tibble(location = location,
+                 lat = lat,
+                 long = long,
+                 pop = pop)
+```
+
+---
+
+class: middle
+
+```{r}
+home
+```
+
+---
+
+.pull-left[
+<br>
+<br>
+<br>
+```{r fig.align='center', eval = FALSE}
+usa_map <- 
+  ggplot(data = usa,
+         aes(x = long, 
+             y = lat)) + 
+  geom_polygon(fill = NA, color = "steelblue",
+               aes(group = group)) + 
+  coord_fixed(1.4)
+```
+]
+
+.pull-right[
+
+```{r fig.align='center', echo = FALSE}
+usa_map <-
+  ggplot(data = usa,
+       aes(x = long, 
+           y = lat)) + 
+  geom_polygon(fill = NA, 
+               color = "steelblue",
+               aes(group = group))  + 
+  coord_fixed(1.4)
+```
+]
+
+
+---
+
+.pull-left[
+<br>
+<br>
+<br>
+```{r fig.align='center', eval = FALSE}
+usa_map +
+  geom_point(data = home, 
+             aes(x = long,
+                 y = lat, 
+                 color = pop))
+```
+]
+
+.pull-right[
+
+```{r fig.align='center', echo = FALSE}
+usa_map +
+  geom_point(data = home, 
+             aes(x = long,
+                 y = lat, 
+                 color = pop))
+```
+]
+
+---
+
+.pull-left[
+<br>
+<br>
+<br>
+```{r fig.align='center', eval = FALSE}
+usa_map +
+  geom_point(data = home, 
+             aes(x = long,
+                 y = lat, 
+                 size = pop))
+```
+]
+
+.pull-right[
+
+```{r fig.align='center', echo = FALSE}
+usa_map +
+  geom_point(data = home, 
+             aes(x = long,
+                 y = lat, 
+                 size = pop))
+```
+]
+
+---
+
+class: middle 
+
+.pull-left[
+<br>
+<br>
+<br>
+```{r fig.align='center', eval = FALSE}
+states <- map_data("state")
+ggplot(data = states,
+       aes(x = long, 
+           y = lat,
+           fill = region)) + 
+  geom_polygon(aes(group = group))  + 
+  coord_fixed(1.4) +
+  guides(fill = "none")
+```
+]
+
+.pull-right[
+
+```{r fig.align='center', echo = FALSE}
+states <- map_data("state")
+ggplot(data = states,
+       aes(x = long, 
+           y = lat,
+           fill = region)) + 
+  geom_polygon(aes(group = group))  + 
+  coord_fixed(1.4) +
+  guides(fill = "none")
+```
+]
+
+
+---
+
+class: middle 
+
+`library(sf)`
+
+[Maps Chapter from ggplot2 book](https://ggplot2-book.org/maps.html)
+
+
+---
+class: middle center inverse
+
+.font75[ggplot extensions]
+
+---
+
+class: middle 
+
+- [`patchwork`](https://patchwork.data-imaginist.com/) combining plots into a single plot
+- [`gganimate`](https://gganimate.com/) animated graphics
+- [`ggthemes`](https://rafalab.github.io/dsbook/ggplot2.html#add-on-packages) additional set of themes
+- [`ggtext`](https://wilkelab.org/ggtext/) improved text rendering support for ggplot2
+- [`ggdag`](https://ggdag.malco.io/) Causal directed acyclic graphs (DAGs)
+- [`survminer`](https://rpkgs.datanovia.com/survminer/index.html) survival analysis and visualization
+- [`gggenes`](https://wilkox.org/gggenes/) gene arrow maps
+
+There are [more extensions](https://exts.ggplot2.tidyverse.org/gallery/).
+---
+
+class: middle center inverse
+
+.font75[Making Accessible Visualizations]
+
+---
+
+class: middle
+
+[Color blindness simulation](https://www.color-blindness.com/coblis-color-blindness-simulator/): red-blind/protanopia
+
+```{r echo=FALSE, out.width="60%", fig.align='center'}
+knitr::include_graphics("img/red-blind.png")
+```
+
+---
+
+class: middle
+
+[Color blindness simulation](https://www.color-blindness.com/coblis-color-blindness-simulator/): green-blind/deuteranopia
+
+```{r echo=FALSE, out.width="60%", fig.align='center'}
+knitr::include_graphics("img/green-blind.png")
+```
+
+
+---
+
+class: middle
+
+[Color blindness simulation](https://www.color-blindness.com/coblis-color-blindness-simulator/): blue-blind/tritanopia
+
+```{r echo=FALSE, out.width="60%", fig.align='center'}
+knitr::include_graphics("img/blue-blind.png")
+```
+
+---
+
+class: middle 
+
+```{r}
+palette.colors(palette = "Okabe-Ito")
+```
+
+[Okabe-Ito color palette](https://jfly.uni-koeln.de/color/) allows us to make figures that are colorblind friendly.
+You can use the HEX code printed for selecting colors.
+---
+
+class: middle
+
+.left-panel[
+```{r eval = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) +
+  facet_grid(species~.) +
+  scale_color_manual(values = #<<
+                      c("#E69F00", #<<
+                        "#009E73", #<<
+                        "#56B4E9")) #<<
+  
+```
+
+]
+
+.right-panel[
+```{r echo = FALSE, fig.height=5, warning = FALSE}
+ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) +
+  facet_grid(species~.) +
+  scale_color_manual(values = 
+                      c("#E69F00",
+                        "#009E73",
+                        "#56B4E9"))
+```
+
+]
+
+---
+
+class: middle
+
+```{r}
+p <- ggplot(penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           shape = species,
+           color = species)) +
+  geom_point(size = 4) +
+  facet_grid(species~.)
+```
+
+
+---
+
+class: middle
+
+```{r fig.align='center', warning=FALSE}
+colorblindr::cvd_grid(p)
+```
+
+
+---
+
+class: middle
+
+
+```{r fig.align='center', warning=FALSE}
+p +
+  colorblindr::scale_color_OkabeIto()
+```
+
+
+---
+
+class: middle 
+
+## Detour: R Markdown chunk options
+
+`r ''````{r, echo=TRUE, message=FALSE}
+```
+---
+
+
+class: center middle 
+
+## (some) Chunk Options in R Markdown
+
+<table align = "center">
+
+<tr>
+
+<td>echo = FALSE</td>
+<td>hides the code</td>
+
+</tr>
+
+<tr>
+
+<td>message = FALSE</td>
+<td>hides messages</td>
+
+</tr>
+
+<tr>
+
+<td>warning = FALSE</td>
+<td>hides warning</td>
+
+</tr>
+
+<tr>
+
+<td>error = TRUE</td>
+<td>renders despite errors and displays the error</td>
+
+</tr>
+
+<tr>
+
+<td>fig.cap = "Some figure caption"</td>
+<td>creates a figure caption</td>
+
+</tr>
+
+<tr>
+
+<td>fig.alt = "Some alternate text for figure"</td>
+<td>creates alternate text for figures</td>
+
+</tr>
+
+
+
+</table>
+
+
+---
+
+class: middle 
+
+## Alternate Text
+
+"Alt text" describes contents of an image. 
+It is used in HTML pages such as the R Markdown outputs we have been writing. 
+Screen-readers cannot read images but can read alt text.
+Alt text has to be provided and cannot magically appear. 
+
+
+---
+
+class: middle
+
+## Potential Content of Alternate Text for Data Visualization
+
+1. Data source/frame
+2. Variables and axes information including units
+3. The plot type
+4. The message that the plot conveys.

@@ -46,14 +46,14 @@ library(fontawesome)
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
 | DBH 4011 (9am-12pm) | Expectation and Monte Carlo Estimation <br /> Inversion method and rejection sampling | [`r fa(name = "desktop")`](week1-material/day02-monte-carlo-methods/day02-slides-part01-prob.pdf) <br /> [`r fa(name = "desktop")`](week1-material/day02-monte-carlo-methods/day02-slides-part02-prob.pdf) |
-| ISEB 2020 (1:30-3:25pm)| Lab<br />Lab solution | [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab.html) (Rmd file: [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab.Rmd))<br /> [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab-solution.html) (Rmd file: [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab-solution.Rmd)) |
+| ISEB 2020 (1:30-3:25pm)| Lab<br />Lab solution | html: [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab.html) (Rmd file: [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab.Rmd))<br /> html: [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab-solution.html) (Rmd file: [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab-solution.Rmd)) |
 
 ## Day 3 - July 13
 
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
 | DBH 4011 | Intro toolkit<br />Summarizing data<br />Visualizing data| [`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03a-intro-toolkit.html)<br />[`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03b-summarizing-data.html)<br />[`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03c-visualizing-data.html) |
-| DBH 4011 | Lab | available on GitHub|
+| DBH 4011 | Lab <br />Lab solutions | available on GitHub<br /> Rmd: [`r fa(name = "file")`](week1-material/day03-intro-toolkit/day03-lab-solution.Rmd) (html: [`r fa(name = "file")`](week1-material/day03-intro-toolkit/day03-lab-solution.html)) |
 
 ## Day 4 - July 14
 

@@ -153,3 +153,8 @@ blockquote {
 
 table { display: inline-block; }
 
+th, td{padding: 5px;
+  font-size:24px;
+}
+
+thead, tfoot, tr:nth-child(even) { background: #eee }

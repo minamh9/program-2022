@@ -52,7 +52,7 @@ library(fontawesome)
 
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
-| DBH 4011 | Intro toolkit<br />Summarizing data<br />Visualizing data| [`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03a-intro-toolkit.html)<br />[`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03b-summarizing-data.html)<br />[`r fa(name = "desktop")`](week1-material/day03-intro-too03c-visualizing-data.html) |
+| DBH 4011 | Intro toolkit<br />Summarizing data<br />Visualizing data| [`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03a-intro-toolkit.html)<br />[`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03b-summarizing-data.html)<br />[`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03c-visualizing-data.html) |
 | DBH 4011 | Lab | available on GitHub|
 
 ## Day 4 - July 14

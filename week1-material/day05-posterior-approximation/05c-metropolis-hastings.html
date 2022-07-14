@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>The Metropolis-Hastings Algorithm</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Mine Dogucu" />
+    <meta name="date" content="2022-07-14" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link rel="stylesheet" href="slide-style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: title-slide
+
+&lt;br&gt;
+&lt;br&gt;
+
+
+# The Metropolis-Hastings Algorithm
+## Dr. Mine Dogucu
+### ISI-BUDS
+### 2022-07-14
+
+
+---
+
+class: middle
+
+## MCMC
+
+__Markov chain Monte Carlo simulation__ techniques help us _approximate_ posterior models.
+
+MCMC simulation produces a _chain_ of `\(N\)` __dependent__ `\(\theta\)` values, `\(\left\lbrace \theta^{(1)}, \theta^{(2)}, \ldots, \theta^{(N)} \right\rbrace\)`, which are __not__ drawn from the posterior pdf `\(f(\theta|y)\)`.
+
+
+---
+
+class: middle
+
+From [Bayes Rules! book](https://bayesrulesbook.com)
+
+Below are examples of "chains" `\(\left\lbrace \theta^{(1)}, \theta^{(2)},\ldots,\theta^{(N)} \right\rbrace\)`, for different probability parameters `\(\theta\)`. For each example, determine whether the given chain is a _Markov_ chain. Explain.
+
+
+a) You go out to eat `\(N\)` nights in a row and `\(\theta^{(i)}\)` is the probability you go to a Thai restaurant on day _i_.  
+b) You play the lottery `\(N\)` days in a row and `\(\theta^{(i)}\)` is the probability you win the lottery on day _i_.  
+c) You play your roommate in chess for `\(N\)` games in a row and `\(\theta^{(i)}\)` is the probability you win game _i_ against your roommate.
+
+
+---
+
+class: middle
+
+[The Metropolis-Hastings algorithm](https://www.bayesrulesbook.com/chapter-7.html#the-metropolis-hastings-algorithm)
+
+---
+
+class: middle
+
+
+```r
+library(tidyverse)
+```
+
+---
+
+
+class: middle
+
+`\(Y \sim \text{Pois}(\lambda)\)`   
+`\(\lambda \sim\text{Gamma}(1,1)\)`  
+`\(Y = 0\)`
+
+
+
+```r
+bayesrules::summarize_gamma_poisson(1, 1, sum_y = 0, n = 1)
+```
+
+```
+##       model shape rate mean mode  var  sd
+## 1     prior     1    1  1.0    0 1.00 1.0
+## 2 posterior     1    2  0.5    0 0.25 0.5
+```
+
+---
+
+class: middle
+
+## The Metropolis-Hastings algorithm
+
+Conditioned on data `\(y\)`, let parameter `\(\lambda\)` have posterior pdf `\(f(\lambda | y) \propto f(\lambda) L(\lambda |y)\)`.  A Metropolis-Hastings Markov chain for `\(f(\lambda|y)\)`, `\(\left\lbrace \lambda^{(1)}, \lambda^{(2)}, ..., \lambda^{(N)}\right\rbrace\)`, evolves as follows.  Let `\(\lambda^{(i)} = \lambda\)` be the location of the chain at iteration `\(i \in \{1,2,...,N-1\}\)` and identify the next location `\(\lambda^{(i+1)}\)` through a two-step process:    
+
+**Step 1: Propose a new location.**    
+    Conditioned on the current location `\(\lambda\)`, draw a location `\(\lambda'\)` from a proposal model with pdf `\(q(\lambda'|\lambda)\)`.
+
+---
+
+class: middle
+
+**Step 2: Decide whether or not to go there.**    
+  - Calculate the __acceptance probability__, ie. the probability of accepting the proposal:    
+
+    `$$\alpha = \min\left\lbrace 1, \; \frac{f(\lambda')L(\lambda'|y)}{f(\lambda)L(\lambda|y)} \frac{q(\lambda|\lambda')}{q(\lambda'|\lambda)} \right\rbrace$$`
+    
+
+- Flip a weighted coin. If it’s Heads, with probability `\(\alpha\)`, go to the proposed location. If it’s Tails, with probability `\(1 - \alpha\)`, stay: 
+
+    $$\lambda^{(i+1)} = 
+       \begin{cases}
+       \lambda' &amp;  \text{ with probability } \alpha \\
+       \lambda &amp;  \text{ with probability } 1- \alpha \\
+       \end{cases}$$`
+
+---
+
+
+```r
+current &lt;- 1
+```
+
+
+```r
+set.seed(4)
+proposal &lt;- rnorm(1, mean = current, sd = 0.3)
+proposal
+```
+
+```
+## [1] 1.065026
+```
+
+---
+
+class: middle
+
+## Should I stay or should I go?
+
+
+
+```r
+proposal_plaus &lt;- dgamma(proposal,1,1) * dpois(0,proposal)
+proposal_plaus
+```
+
+```
+## [1] 0.118831
+```
+
+```r
+current_plaus  &lt;- dgamma(current,1,1) * dpois(0,current)
+current_plaus 
+```
+
+```
+## [1] 0.1353353
+```
+
+---
+
+class: middle
+
+## Should I stay or should I go?
+
+
+```r
+alpha &lt;- min(1, proposal_plaus / current_plaus)
+alpha
+```
+
+```
+## [1] 0.878049
+```
+
+Though not certain, the probability `\(\alpha\)` of accepting and subsequently moving to the proposed location is relatively high
+
+---
+class: middle
+
+## Should I stay or should I go?
+
+To make the final determination, we flip a weighted coin which accepts the proposal with probability `\(\alpha\)` (0.878) and rejects the proposal with probability `\(1 - \alpha\)` (0.122).
+
+
+```r
+next_stop &lt;- sample(c(proposal, current), size = 1, 
+  prob = c(alpha, 1-alpha))
+next_stop
+```
+
+```
+## [1] 1.065026
+```
+
+---
+
+
+```r
+one_mh_iteration &lt;- function(sigma, current){
+ # STEP 1: Propose the next chain location
+ proposal &lt;- rnorm(1, mean = current, sd = sigma)
+  
+ # STEP 2: Decide whether or not to go there
+ if(proposal &lt; 0) {alpha &lt;- 0}
+ else {
+  proposal_plaus &lt;- dgamma(proposal, 1, 1) * dpois(0, proposal)
+  current_plaus  &lt;- dgamma(current, 1, 1) * dpois(0, current)
+  alpha &lt;- min(1, proposal_plaus / current_plaus)
+ }
+ next_stop &lt;- sample(c(proposal, current), 
+  size = 1, prob = c(alpha, 1-alpha))
+  
+ # Return the results
+ return(data.frame(proposal, alpha, next_stop))
+}
+```
+
+---
+
+
+```r
+mh_tour &lt;- function(N, sigma){
+  # 1. Start the chain at location 1
+  current &lt;- 1
+
+  # 2. Initialize the simulation
+  lambda &lt;- rep(0, N)
+
+  # 3. Simulate N Markov chain stops
+  for(i in 1:N){    
+    # Simulate one iteration
+    sim &lt;- one_mh_iteration(sigma = sigma, current = current)
+    
+    # Record next location
+    lambda[i] &lt;- sim$next_stop
+    
+    # Reset the current location
+    current &lt;- sim$next_stop
+  }
+  
+  # 4. Return the chain locations
+  return(data.frame(iteration = c(1:N), lambda))
+}
+```
+---
+class: middle
+
+
+```r
+set.seed(4)
+one_mh_iteration(sigma = 0.3, current = 1)
+```
+
+```
+##   proposal    alpha next_stop
+## 1 1.065026 0.878049  1.065026
+```
+
+
+```r
+set.seed(7)
+one_mh_iteration(sigma = 0.3, current = 1)
+```
+
+```
+##   proposal     alpha next_stop
+## 1 1.686174 0.2535109         1
+```
+
+---
+
+
+```r
+set.seed(84735)
+mh_simulation_1 &lt;- mh_tour(N = 5000, sigma = 0.3)
+```
+
+---
+
+
+```r
+ggplot(mh_simulation_1, aes(x = iteration, y = lambda)) + 
+  geom_line()
+
+ggplot(mh_simulation_1, aes(x = lambda)) + 
+  geom_histogram(color = "white")
+```
+
+![](05c-metropolis-hastings_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "pygments",
+"highlightLines": true,
+"highlightLanguage": "r"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

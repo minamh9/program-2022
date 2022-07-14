@@ -1,0 +1,252 @@
+---
+title: "The Metropolis-Hastings Algorithm"
+subtitle: "ISI-BUDS"
+author: "Dr. Mine Dogucu"
+date: "2022-07-14"
+output: 
+  xaringan::moon_reader:
+    css: ["slide-style.css"]
+    lib_dir: libs
+    seal: false
+    nature:
+      ratio: 16:9
+      highlightStyle: "pygments"
+      highlightLines: true
+      highlightLanguage: "r"
+
+
+---
+
+class: title-slide
+
+<br>
+<br>
+
+
+# `r rmarkdown::metadata$title`
+## `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$subtitle`
+### `r rmarkdown::metadata$date`
+
+
+---
+
+class: middle
+
+## MCMC
+
+__Markov chain Monte Carlo simulation__ techniques help us _approximate_ posterior models.
+
+MCMC simulation produces a _chain_ of $N$ __dependent__ $\theta$ values, $\left\lbrace \theta^{(1)}, \theta^{(2)}, \ldots, \theta^{(N)} \right\rbrace$, which are __not__ drawn from the posterior pdf $f(\theta|y)$.
+
+
+---
+
+class: middle
+
+From [Bayes Rules! book](https://bayesrulesbook.com)
+
+Below are examples of "chains" $\left\lbrace \theta^{(1)}, \theta^{(2)},\ldots,\theta^{(N)} \right\rbrace$, for different probability parameters $\theta$. For each example, determine whether the given chain is a _Markov_ chain. Explain.
+
+
+a) You go out to eat $N$ nights in a row and $\theta^{(i)}$ is the probability you go to a Thai restaurant on day _i_.  
+b) You play the lottery $N$ days in a row and $\theta^{(i)}$ is the probability you win the lottery on day _i_.  
+c) You play your roommate in chess for $N$ games in a row and $\theta^{(i)}$ is the probability you win game _i_ against your roommate.
+
+
+---
+
+class: middle
+
+[The Metropolis-Hastings algorithm](https://www.bayesrulesbook.com/chapter-7.html#the-metropolis-hastings-algorithm)
+
+---
+
+class: middle
+
+```{r message=FALSE}
+library(tidyverse)
+```
+
+---
+
+
+class: middle
+
+$Y \sim \text{Pois}(\lambda)$   
+$\lambda \sim\text{Gamma}(1,1)$  
+$Y = 0$
+
+
+```{r}
+bayesrules::summarize_gamma_poisson(1, 1, sum_y = 0, n = 1)
+```
+
+---
+
+class: middle
+
+## The Metropolis-Hastings algorithm
+
+Conditioned on data $y$, let parameter $\lambda$ have posterior pdf $f(\lambda | y) \propto f(\lambda) L(\lambda |y)$.  A Metropolis-Hastings Markov chain for $f(\lambda|y)$, $\left\lbrace \lambda^{(1)}, \lambda^{(2)}, ..., \lambda^{(N)}\right\rbrace$, evolves as follows.  Let $\lambda^{(i)} = \lambda$ be the location of the chain at iteration $i \in \{1,2,...,N-1\}$ and identify the next location $\lambda^{(i+1)}$ through a two-step process:    
+
+**Step 1: Propose a new location.**    
+    Conditioned on the current location $\lambda$, draw a location $\lambda'$ from a proposal model with pdf $q(\lambda'|\lambda)$.
+
+---
+
+class: middle
+
+**Step 2: Decide whether or not to go there.**    
+  - Calculate the __acceptance probability__, ie. the probability of accepting the proposal:    
+
+    $$\alpha = \min\left\lbrace 1, \; \frac{f(\lambda')L(\lambda'|y)}{f(\lambda)L(\lambda|y)} \frac{q(\lambda|\lambda')}{q(\lambda'|\lambda)} \right\rbrace$$
+    
+
+- Flip a weighted coin. If it’s Heads, with probability $\alpha$, go to the proposed location. If it’s Tails, with probability $1 - \alpha$, stay: 
+
+    $$\lambda^{(i+1)} = 
+       \begin{cases}
+       \lambda' &  \text{ with probability } \alpha \\
+       \lambda &  \text{ with probability } 1- \alpha \\
+       \end{cases}$$
+
+---
+
+```{r}
+current <- 1
+```
+
+```{r}
+set.seed(4)
+proposal <- rnorm(1, mean = current, sd = 0.3)
+proposal
+```
+
+---
+
+class: middle
+
+## Should I stay or should I go?
+
+
+```{r}
+proposal_plaus <- dgamma(proposal,1,1) * dpois(0,proposal)
+proposal_plaus
+current_plaus  <- dgamma(current,1,1) * dpois(0,current)
+current_plaus 
+```
+
+---
+
+class: middle
+
+## Should I stay or should I go?
+
+```{r}
+alpha <- min(1, proposal_plaus / current_plaus)
+alpha
+```
+
+Though not certain, the probability $\alpha$ of accepting and subsequently moving to the proposed location is relatively high
+
+---
+class: middle
+
+## Should I stay or should I go?
+
+To make the final determination, we flip a weighted coin which accepts the proposal with probability $\alpha$ (`r round(alpha,3)`) and rejects the proposal with probability $1 - \alpha$ (`r round(1-alpha,3)`).
+
+```{r}
+next_stop <- sample(c(proposal, current), size = 1, 
+  prob = c(alpha, 1-alpha))
+next_stop
+```
+
+---
+
+```{r}
+one_mh_iteration <- function(sigma, current){
+ # STEP 1: Propose the next chain location
+ proposal <- rnorm(1, mean = current, sd = sigma)
+  
+ # STEP 2: Decide whether or not to go there
+ if(proposal < 0) {alpha <- 0}
+ else {
+  proposal_plaus <- dgamma(proposal, 1, 1) * dpois(0, proposal)
+  current_plaus  <- dgamma(current, 1, 1) * dpois(0, current)
+  alpha <- min(1, proposal_plaus / current_plaus)
+ }
+ next_stop <- sample(c(proposal, current), 
+  size = 1, prob = c(alpha, 1-alpha))
+  
+ # Return the results
+ return(data.frame(proposal, alpha, next_stop))
+}
+```
+
+---
+
+```{r}
+mh_tour <- function(N, sigma){
+  # 1. Start the chain at location 1
+  current <- 1
+
+  # 2. Initialize the simulation
+  lambda <- rep(0, N)
+
+  # 3. Simulate N Markov chain stops
+  for(i in 1:N){    
+    # Simulate one iteration
+    sim <- one_mh_iteration(sigma = sigma, current = current)
+    
+    # Record next location
+    lambda[i] <- sim$next_stop
+    
+    # Reset the current location
+    current <- sim$next_stop
+  }
+  
+  # 4. Return the chain locations
+  return(data.frame(iteration = c(1:N), lambda))
+}
+```
+---
+class: middle
+
+```{r}
+set.seed(4)
+one_mh_iteration(sigma = 0.3, current = 1)
+```
+
+```{r}
+set.seed(7)
+one_mh_iteration(sigma = 0.3, current = 1)
+```
+
+---
+
+```{r cache = TRUE}
+set.seed(84735)
+mh_simulation_1 <- mh_tour(N = 5000, sigma = 0.3)
+```
+
+---
+
+```{r eval = FALSE}
+ggplot(mh_simulation_1, aes(x = iteration, y = lambda)) + 
+  geom_line()
+
+ggplot(mh_simulation_1, aes(x = lambda)) + 
+  geom_histogram(color = "white")
+```
+
+```{r echo = FALSE, fig.height = 4.5}
+g1 <- ggplot(mh_simulation_1, aes(x = iteration, y = lambda)) + 
+  geom_line()
+
+g2 <- ggplot(mh_simulation_1, aes(x = lambda)) + 
+  geom_histogram(color = "white", breaks = seq(0,2.5,length = 20)) 
+
+gridExtra::grid.arrange(g1,g2,ncol=2)
+```

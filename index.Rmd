@@ -45,7 +45,7 @@ library(fontawesome)
 
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
-| DBH 4011 (9am-12pm) | Expectation and Monte Carlo Estimation <br /> Inversion method and rejection sampling | [`r fa(name = "desktop")`](week1-material/day02-monte-carlo-methods/day02-slides-part01-prob.pdf) <br /> [`r fa(name = "desktop")`](week1-material/day02-monte-carlo-methods/day02-slides-part02-prob.pdf) |
+| DBH 4011 (9am-12pm) | Expectation and Monte Carlo Estimation <br /> Inversion method and rejection sampling | [`r fa(name = "desktop")`](week1-material/day02-monte-carlo-methods/day02-slides-part01-prob.pdf) (*annotated slides*: [`r fa(name = "desktop")`](week1-material/day02-monte-carlo-methods/day02-slides-part01-prob-annotated.pdf)) <br /> [`r fa(name = "desktop")`](week1-material/day02-monte-carlo-methods/day02-slides-part02-prob.pdf) (*annotated slides*: [`r fa(name = "desktop")`](week1-material/day02-monte-carlo-methods/day02-slides-part02-prob-annotated.pdf)) |
 | ISEB 2020 (1:30-3:25pm)| Lab<br />Lab solution | html: [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab.html) (Rmd file: [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab.Rmd))<br /> html: [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab-solution.html) (Rmd file: [`r fa(name = "file")`](week1-material/day02-monte-carlo-methods/day02-lab-solution.Rmd)) |
 
 ## Day 3 - July 13

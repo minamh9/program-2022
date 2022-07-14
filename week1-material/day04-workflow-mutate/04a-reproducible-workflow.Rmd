@@ -1,5 +1,5 @@
 ---
-title: "Workflow practices for reproducible analysis"
+title: "Reproducible workflow and good coding practices"
 subtitle: "ISI-BUDS"
 author: "Dr. Mine Dogucu"
 date: "2022-07-14"

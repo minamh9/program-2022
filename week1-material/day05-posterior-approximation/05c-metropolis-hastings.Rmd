@@ -33,6 +33,64 @@ class: title-slide
 
 class: middle
 
+```{r}
+library(bayesrules)
+```
+
+```{r echo=FALSE}
+ggplot2::theme_set(ggplot2::theme_gray(base_size = 18))
+```
+
+
+
+---
+
+class: middle
+
+
+## Conjugate Families: The Beta-Binomial Model
+
+```{r fig.height=5, fig.align='center'}
+plot_beta_binomial(alpha = 10, beta = 3, y = 3, n = 20)
+```
+
+---
+
+class: middle
+
+
+## Conjugate Families: The Beta-Binomial Model
+
+```{r}
+summarize_beta_binomial(alpha = 10, beta = 3, y = 3, n = 20)
+```
+
+---
+
+class: middle
+
+
+## Conjugate Families: The Gamme-Poisson Model
+
+```{r fig.height=5, fig.align='center'}
+plot_gamma_poisson(shape = 1, rate = 13, sum_y = 15, n = 20)
+```
+
+---
+
+class: middle
+
+
+## Conjugate Families: The Gamme-Poisson Model
+
+```{r fig.height=5, fig.align='center'}
+summarize_gamma_poisson(shape = 1, rate = 13, sum_y = 15, n = 20)
+```
+
+---
+
+class: middle
+
 ## MCMC
 
 __Markov chain Monte Carlo simulation__ techniques help us _approximate_ posterior models.
@@ -112,6 +170,8 @@ class: middle
        \end{cases}$$
 
 ---
+
+class: middle
 
 ```{r}
 current <- 1
@@ -239,14 +299,18 @@ ggplot(mh_simulation_1, aes(x = iteration, y = lambda)) +
 
 ggplot(mh_simulation_1, aes(x = lambda)) + 
   geom_histogram(color = "white")
+
+plot_gamma(1,2)
 ```
 
-```{r echo = FALSE, fig.height = 4.5}
+```{r echo = FALSE, fig.height = 4.5, fig.align='center'}
 g1 <- ggplot(mh_simulation_1, aes(x = iteration, y = lambda)) + 
   geom_line()
 
 g2 <- ggplot(mh_simulation_1, aes(x = lambda)) + 
   geom_histogram(color = "white", breaks = seq(0,2.5,length = 20)) 
 
-gridExtra::grid.arrange(g1,g2,ncol=2)
+g3 <- plot_gamma(1,2)
+
+gridExtra::grid.arrange(g1,g2,g3, ncol=3)
 ```

@@ -67,7 +67,8 @@ library(fontawesome)
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
 | DBH 4011 | Likelihood, MLE, and Bayesian Inference | [`r fa(name = "desktop")`](week1-material/day05-posterior-approximation/day05-slides-part01-prob.pdf) |
-| DBH 4011 | Metropolis Hastings | [`r fa(name = "desktop")`](week1-material/day05-posterior-approximation/05c-metropolis-hastings.html) |
+| DBH 4011 | Metropolis-Hastings | [`r fa(name = "desktop")`](week1-material/day05-posterior-approximation/05c-metropolis-hastings.html) |
+| DBH 4011 | Lab 5 | [`r fa(name = "file")`](week1-material/day05-posterior-approximation/day05-lab5.Rmd) |
 
 ## Day 6 - July 18
 

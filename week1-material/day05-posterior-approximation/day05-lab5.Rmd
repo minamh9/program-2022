@@ -1,0 +1,268 @@
+---
+title: 'Lab 5: Metropolis-Hastings algorithm'
+output: html_document
+date: '2022-07-15'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.height = 3,
+  fig.width = 4
+)
+```
+
+```{r}
+library(ggplot2)
+```
+
+
+## Summary  
+### Objective  
+Let our parameter of interest, $\theta$, have the following posterior pdf:
+$$f(\theta | y) \propto f(\theta)L(\theta|y) $$
+
+Likely the posterior is intractable (i.e. we cannot calculate it) so we want to approximate the posterior by *obtaining samples of our parameter of interest with the target distribution*. We use those samples to approximate the posterior distribution.
+
+
+### Idea  
+- Start at some intial guess for $\theta$
+- Draw a sample, $\theta'$, from a proposed model with a pdf, $q(\theta' | \theta)$, that we can easily sample from and is conditional on our guess for $\theta$. 
+- Calculate an acceptance probability $\alpha$ for this guess, which accounts for the posterior and proposal probabilities of both the guess $\theta$ and the new sample $\theta'$.
+- Accept the proposed sample $\theta'$ according the the acceptance probability
+
+
+### Algorithm  
+- **Step 1: Propose a new location.**  
+Conditioned on the current location $\theta$, draw a location $\theta'$ from a proposed model with pdf $q(\theta' | \theta)$.
+
+- **Step 2: Decide whether or not to go there.**
+    - Calculate the proposal acceptance probability:
+    $$\alpha = min\{ 1, \frac{f(\theta') L(\theta' | y)}{f(\theta) L(\theta | y)} \frac{q(\theta | \theta')}{q(\theta' | \theta)}\}$$
+    - Draw a Bernoulli random variable with acceptance probability $\alpha$. If successful store the proposed $\theta'$, if not store the original guess
+
+
+## Normal-normal example  
+
+Let $\mu$ be our parameter of interest with
+  $$\mu \sim N(0, 1^2) \\ Y|\mu \sim N(\mu, 0.65^2).$$
+Supposed we observe an outcome $Y = 6.25$.
+We will use the $Uniform$ distribution as our proposal model since it is easy to sample from and has the same support. Specifically, the proposed sample given the previous sample is 
+$$\mu' | \mu \sim Unif(\mu - w, \mu + w),$$
+where $w$ is some step size we can choose.
+
+Now that we have our model lets code one run of this algorithm.
+
+```{r}
+set.seed(8)
+
+# Set some initial guess for $mu$
+current <- 3
+# Set some step size
+w <- 1
+
+# Draw a proposal mu'
+proposal <- runif(1, min = current - w, max = current + w)
+
+# Calculate components of acceptance probability 
+proposal_f <- dnorm(proposal, mean = 0, sd = 1) * dnorm(6.25, proposal, 0.75)
+proposal_q <- dunif(proposal, min = proposal - w, max = proposal + w)
+current_f <- dnorm(current, 0, 1) * dnorm(6.25, current, 0.75)
+current_q <- dunif(current, min = current - w, max = current + w)
+
+# Calculate acceptance probability
+alpha <- min(
+  1, 
+  proposal_f * current_q / (current_f * proposal_q)
+)
+
+# Do a random draw to determine which sample of mu to keep
+next_stop <- sample(
+  c(proposal, current),
+  size = 1,
+  prob = c(alpha, 1 - alpha)
+)
+
+```
+
+We now have the code for a single iteration of the Metropolis-Hastings algorithm. It returns one sample of $\mu$. 
+
+In practice we would want to obtain thousands of these samples so we can have a better understanding of the posterior distribution. Instead of copying and pasting this code repeatedly, we can make it into a function so we can perform an iteration of Metropolis-Hastings in one function call.
+
+Note at the beginning of our code we set $\mu$ and $w$. We can make these arguments to our function so they are provided at each function call.
+
+```{r}
+one_mh_iteration <- function(current, w){
+  
+  # Draw a proposal mu'
+  proposal <- runif(1, min = current - w, max = current + w)
+  
+  # Calculate components of acceptance probability 
+  proposal_f <- dnorm(proposal, mean = 0, sd = 1) * dnorm(6.25, proposal, 0.75)
+  proposal_q <- dunif(proposal, min = proposal - w, max = proposal + w)
+  current_f <- dnorm(current, 0, 1) * dnorm(6.25, current, 0.75)
+  current_q <- dunif(current, min = current - w, max = current + w)
+  
+  # Calculate acceptance probability
+  alpha <- min(
+    1, 
+    proposal_f * current_q / (current_f * proposal_q)
+  )
+  
+  # Do a random draw to determine which sample of mu to keep
+  next_stop <- sample(
+    c(proposal, current),
+    size = 1,
+    prob = c(alpha, 1 - alpha)
+  )
+  
+  # Return the results
+  return(
+    data.frame(proposal, alpha, next_stop)
+  )
+  
+}
+```
+
+Let's call the function once to check.
+
+```{r}
+set.seed(8)
+
+one_mh_iteration(current = 3, w = 1)
+```
+
+We now have the code to easily run an iteration. Let's define a function which performs $N$ Metropolis-Hastings iterations.
+
+```{r}
+normal_mh_tour <- function(N, w){
+  
+  # Start the chain at this value
+  current <- 3
+  
+  # Initialize a vector to store our samples of mu
+  mu <- rep(NA, N)
+  
+  # Simulate N Markov chain stops
+  for(i in 1:N){
+    # Simulate on iteration
+    sim <- one_mh_iteration(current = current, w = w)
+    
+    # Record new sample
+    mu[i] <- sim$next_stop
+    
+    # Set new current sample
+    current <- sim$next_stop
+  }
+  
+  # Return the chain locations
+  return(
+    data.frame(iteration = 1:N, mu = mu)
+  )
+}
+```
+
+Let's use our sampler now!
+
+```{r}
+set.seed(8)
+
+mh_simulation_1 <- normal_mh_tour(N = 5000, w = 1)
+```
+
+Lastly, we will make a trace plot to assess how our sampling went and plot the distribution of our sampling. 
+
+```{r}
+ggplot(mh_simulation_1, aes(x = iteration, y = mu)) + 
+  geom_line()
+
+ggplot(mh_simulation_1, aes(x = mu)) + 
+  geom_histogram(aes(y = ..density..), color = "white", bins = 20) + 
+  stat_function(fun = dnorm, args = list(4,0.6), color = "blue")
+```
+
+The blue curve is the actual posterior we were trying to simulate samples from.
+
+We now have the framework for the Metropolis-Hastings (MH) algorithm, what would we need to change for a different model?
+
+
+## Beta-Binomial model  
+In this example we will work with the Beta-Binomial model in which we observe $Y=1$ success in 2 trials:
+$$\pi \sim Beta(2, 3) \\ Y|\pi \sim Bin(2, \pi).$$
+
+We are simulation probabilities in this case so we need a proposal with support between 0 and 1. We will choose a $Beta(a, b)$ as the proposal distribution.
+
+Below is the framework for defining one MH iteration, fill it in for this model.
+
+```{r}
+one_iteration <- function(current, a, b){
+  # Draw a proposal pi'
+  
+  
+  # Calculate components of acceptance probability 
+  
+  
+  # Calculate acceptance probability
+  
+  
+  # Do a random draw to determine which sample of pi to keep
+
+  
+  # Return the results
+  return(
+    data.frame(proposal, alpha, next_stop)
+  )
+  
+}
+```
+
+Next we need the overall function that obtains $N$ samples. Again fill in the framework provided.
+
+```{r}
+beta_bin_mh_tour <- function(N, a, b){
+  
+  # Start the chain at 0.5
+
+  
+  # Initialize a vector to store our samples of pi
+
+  
+  # Simulate N Markov chain stops
+  for(i in 1:N){
+    # Simulate on iteration
+
+    
+    # Record new sample
+    
+    
+    # Set new current sample
+    
+    
+  }
+  
+  # Return the chain locations
+  return(
+    data.frame(iteration = 1:N, pi = pi)
+  )
+  
+}
+```
+
+Run your code to obtain 5000 samples of $\pi$. Once your code is read remove "eval = FALSE" from the code chunk header in order to run the code below.
+
+```{r, eval = FALSE}
+set.seed(84735)
+betabin_sim <- beta_bin_mh_tour(N = 5000, a = 1, b = 1)
+
+# Plot the results
+ggplot(betabin_sim, aes(x = iteration, y = pi)) + 
+  geom_line()
+
+ggplot(betabin_sim, aes(x = pi)) + 
+  geom_histogram(aes(y = ..density..), color = "white") + 
+  stat_function(fun = dbeta, args = list(3, 4), color = "blue")
+```
+

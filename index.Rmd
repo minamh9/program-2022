@@ -54,6 +54,7 @@ library(fontawesome)
 |:--------------|:------------------------------|:-------------|
 | DBH 4011 | Intro toolkit<br />Summarizing data<br />Visualizing data| [`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03a-intro-toolkit.html)<br />[`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03b-summarizing-data.html)<br />[`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03c-visualizing-data.html) |
 | DBH 4011 | Lab <br />Lab solutions | available on GitHub<br /> Rmd: [`r fa(name = "file")`](week1-material/day03-intro-toolkit/day03-lab-solution.Rmd) (html: [`r fa(name = "file")`](week1-material/day03-intro-toolkit/day03-lab-solution.html)) |
+| DBH 4011 | Career talk: Brain Martin (Abbvie) | |
 
 ## Day 4 - July 14
 
@@ -61,6 +62,7 @@ library(fontawesome)
 |:--------------|:------------------------------|:-------------|
 | DBH 4011 | Workflow practices<br />Changing variables<br />Baye's Rule | [`r fa(name = "desktop")`](week1-material/day04-workflow-mutate/04a-reproducible-workflow.html)<br />[`r fa(name = "desktop")`](week1-material/day04-workflow-mutate/04b-changing-variables.html)<br /> [`r fa(name = "desktop")`](week1-material/day04-workflow-mutate/04c-bayes-rv.html)|
 | DBH 4011 | Lab | Rmd: [`r fa(name = "file")`](week1-material/day04-workflow-mutate/day04-lab.Rmd) (html: [`r fa(name = "file")`](week1-material/day04-workflow-mutate/day04-lab.html))  | 
+| DBH 4011 | Career panel: Jessica George, Michael M Thomas, & Emily Zabor | |
 
 ## Day 5 - July 15
 

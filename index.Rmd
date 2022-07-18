@@ -77,6 +77,7 @@ library(fontawesome)
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
 | DBH 4011 | Role of statistics<br />Adjustment<br />fev.raw data<br />Adjustment FEV script | [`r fa(name = "desktop")`](week2-material/day06/day06-lecture1-role-of-statistics.pdf)<br />[`r fa(name = "desktop")`](week2-material/day06/day06-lecture2-adjustment.pdf)<br />[`r fa(name = "file")`](week2-material/day06/fev.raw)<br />[`r fa(name = "file")`](week2-material/day06/ISI_BUDS_Adjustment_FEV.R) |
+| DBH 4011 | Lab salary data | [`r fa(name = "file")`](week2-material/day06/salary95.txt) |
 
 ## Day 7 - July 19
 

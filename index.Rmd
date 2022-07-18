@@ -66,15 +66,15 @@ library(fontawesome)
 
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
-| DBH 4011 | Likelihood, MLE, and Bayesian Inference | [`r fa(name = "desktop")`](week1-material/day05-posterior-approximation/day05-slides-part01-prob.pdf) |
+| DBH 4011 | Likelihood, MLE, and Bayesian Inference | [`r fa(name = "desktop")`](week1-material/day05-posterior-approximation/day05-slides-part01-prob.pdf) (*annotated slides*: [`r fa(name = "desktop")`](week1-material/day05-posterior-approximation/day05-slides-part01-prob-annotated.pdf)) |
 | DBH 4011 | Metropolis-Hastings | [`r fa(name = "desktop")`](week1-material/day05-posterior-approximation/05c-metropolis-hastings.html) |
-| DBH 4011 | Lab 5 | [`r fa(name = "file")`](week1-material/day05-posterior-approximation/day05-lab5.Rmd) |
+| DBH 4011 | Lab 5<br />Lab solution | [`r fa(name = "file")`](week1-material/day05-posterior-approximation/day05-lab5.Rmd)<br />[`r fa(name = "file")`](week1-material/day05-posterior-approximation/day05-lab5-solution.Rmd) |
 
 ## Day 6 - July 18
 
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
-| DBH 4011 | | |
+| DBH 4011 | Role of statistics<br />Adjustment<br />fev.raw data<br />Adjustment FEV script | [`r fa(name = "desktop")`](week2-material/day06/day06-lecture1-role-of-statistics.pdf)<br />[`r fa(name = "desktop")`](week2-material/day06/day06-lecture2-adjustment.pdf)<br />[`r fa(name = "file")`](week2-material/day06/fev.raw)<br />[`r fa(name = "file")`](week2-material/day06/ISI_BUDS_Adjustment_FEV.R) |
 
 ## Day 7 - July 19
 

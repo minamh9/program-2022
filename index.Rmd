@@ -54,7 +54,7 @@ library(fontawesome)
 |:--------------|:------------------------------|:-------------|
 | DBH 4011 | Intro toolkit<br />Summarizing data<br />Visualizing data| [`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03a-intro-toolkit.html)<br />[`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03b-summarizing-data.html)<br />[`r fa(name = "desktop")`](week1-material/day03-intro-toolkit/03c-visualizing-data.html) |
 | DBH 4011 | Lab <br />Lab solutions | available on GitHub<br /> Rmd: [`r fa(name = "file")`](week1-material/day03-intro-toolkit/day03-lab-solution.Rmd) (html: [`r fa(name = "file")`](week1-material/day03-intro-toolkit/day03-lab-solution.html)) |
-| DBH 4011 | Career talk: Brain Martin (Abbvie) | |
+| DBH 4011 | Career talk: Brain Martin (AbbVie) | |
 
 ## Day 4 - July 14
 

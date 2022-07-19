@@ -1,0 +1,88 @@
+---
+title: "Summary table for salary data (Table 1)"
+output: html_document
+date: '2022-07-19'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.height = 3,
+  fig.width = 4
+)
+```
+
+```{r load libraries}
+# install.packages("gtsummary")
+library(gtsummary)
+library(tidyverse)
+```
+
+
+```{r read in data}
+salary_og <- read_delim(
+  here::here("week2-material/day06/salary95.txt"), 
+  delim = "\t"
+)
+```
+
+```{r prepare data}
+salary <- salary_og %>% 
+  mutate(gender = factor(
+    gender, 
+    levels = c("F", "M"), 
+    labels = c("Female", "Male")
+  )) %>% 
+  mutate(deg = factor(
+    deg, 
+    levels = c("PhD", "Prof", "Other"), 
+    labels = c("PhD", "Profesional", "Other")
+  )) %>% 
+  mutate(field = factor(
+    field,
+    levels = c("Arts", "Prof", "Other"),
+    labels = c("Arts", "Profesional", "Other")
+  )) %>% 
+  mutate(rank = factor(
+    rank,
+    levels = c("Assist", "Assoc", "Full"),
+    labels = c("Assistant", "Associate", "Full")
+  )) %>% 
+  mutate(admin = factor(
+    admin,
+    levels = c(0, 1),
+    labels = c("No", "Yes")
+  )) %>% 
+  mutate(startyr = 1900 + startyr)
+```
+
+```{r basic summary table}
+salary %>% 
+  select(-c("id", "yrdeg", "year", "salary")) %>% 
+  tbl_summary(by = gender)
+    
+```
+
+```{r nicer summary table}
+salary %>% 
+  select(-c("id", "yrdeg", "year", "salary")) %>% 
+  tbl_summary(
+    by = gender,
+    statistic = list(
+      all_continuous() ~ "{mean} ({sd})",
+      all_categorical() ~ "{n} ({p}%)"
+    ),
+    label = c(
+      deg ~ "Degree",
+      field ~ "Field",
+      startyr ~ "Start Year",
+      rank ~ "Rank",
+      admin ~ "Admin"
+    )
+  ) %>% 
+  add_overall()
+```
+

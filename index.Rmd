@@ -85,6 +85,8 @@ library(fontawesome)
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
 | DBH 3011 | Prediction | [`r fa(name = "desktop")`](week2-material/day07/day07-lecture3-prediction-part1.pdf) |
+| DBH 3011 | Salary lab continued | [`r fa(name = "file")`](week2-material/day07/lab06-continued-table1.Rmd) |
+| DBH 3011 | Confounding simulation | [`r fa(name = "file")`](week2-material/day07/lab07-confounding-simulation.R) |
 
 ## Day 8 - July 20
 

@@ -90,6 +90,7 @@ library(fontawesome)
 | Location      |  Topic                        | Materials    |
 |:--------------|:------------------------------|:-------------|
 | DBH 4011 | | |
+| DBH 4011 (1:30-3:25pm) | Graduate School Panel | |
 
 ## Day 9 - July 21
 
